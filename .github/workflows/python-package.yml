@@ -38,6 +38,7 @@ jobs:
       run: |
         sudo apt install google-chrome-stable
         sudo apt-get install firefox
+        python -m pip install selenium
     - name: Test selenium
       run: |
         python test.py
