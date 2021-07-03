@@ -8,5 +8,10 @@ options.add_argument('--disable-dev-shm-usage')
 options.add_argument('disable-infobars')
 options.add_argument("--disable-extensions")
 driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chromedriver')
-driver.get("http://github.com/")
-print ('Page title is ' + driver.title)
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+url = df['url']
+driver.get(url)
+print(driver.title)
