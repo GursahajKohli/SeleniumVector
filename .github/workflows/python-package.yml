@@ -42,7 +42,7 @@ jobs:
         python -m pip install selenium
     - name: Install Libraries
       run: |
-        sudo pip install pandas
+        pip install pandas
     - name: Test selenium
       run: |
         python test.py
