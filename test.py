@@ -9,9 +9,5 @@ options.add_argument('disable-infobars')
 options.add_argument("--disable-extensions")
 driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chromedriver')
 import pandas as pd
-
-df = pd.read_csv('data.csv')
-
-url = df['url']
-driver.get(url)
+driver.get("https://vectorinstitute.bamboohr.com/jobs/")
 print(driver.title)
