@@ -9,5 +9,13 @@ options.add_argument('disable-infobars')
 options.add_argument("--disable-extensions")
 driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chromedriver')
 import pandas as pd
-driver.get("https://vectorinstitute.bamboohr.com/jobs/")
+config = {'url' : 'https://vectorinstitute.bamboohr.com/jobs/', 'links' : '//div[contains(@itemtype, "http://schema.org/JobPosting")]//div//a'}
+driver.get(config['url'])
 print(driver.title)
+print("Job links found as")
+search = driver.find_elements_by_xpath(config['links'])
+print(search)
+for i in search:
+  print(i)
+  print(i.get_attribute("href"))
+ print("Done!")
