@@ -40,6 +40,9 @@ jobs:
         sudo apt-get install firefox
         sudo pip3 install selenium
         python -m pip install selenium
+    - name: Install Libraries
+      run: |
+        sudo pip install pandas
     - name: Test selenium
       run: |
         python test.py
