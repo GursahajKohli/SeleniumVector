@@ -1,6 +1,17 @@
 import configparser
 import re
 
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+options = Options()
+options.add_argument("--headless")
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-gpu')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('disable-infobars')
+options.add_argument("--disable-extensions")
+driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chromedriver')
+
 import scrapy
 from bs4 import BeautifulSoup
 from scrapy_splash import SplashRequest
@@ -30,6 +41,7 @@ class JobSpider(scrapy.Spider):
     Extracts job urls from job list, and job details from each url.
     """
     name = 'job'
+    
 
     def __init__(self, **kwargs):
         config = configparser.ConfigParser()
@@ -41,6 +53,45 @@ class JobSpider(scrapy.Spider):
         self._job_counter = 0
 
         self._progress_bar = tqdm()
+        if self._config['scrapable'] == "No" :
+            
+            parse_selenium(self)            
+        
+    def parse_selenium(self):
+        
+        print("Fetching non scrapable jobs")
+        
+        url = self._config['url']
+        driver = webdriver.get(url)
+        links = driver.find_elements_by_xpath(self._config['joblist.link.xpath'])
+        for link in links : 
+            fetch_links(self, link)
+            print("Parsing job :: ", link)
+            
+    def fetch_links(self, link):
+        
+        driver = webdriver.get(link)
+        
+        title = driver.find_element_by_xpath(self.config['jobdetails.title.xpath'])
+        company = self._config['company_name']
+        location = driver.find_element_by_xpath(self._config['jobdetails.location.xpath'])
+        description = driver.find_element_by_xpath(self._config['jobdetails.description.xpath'])
+        url = link
+        email = ""
+        category = ""
+        logo = driver.find_element_by_xpath(self._config['jobdetails.logo'])
+        remote = ""
+        reference = ""
+        yield JobDetails(title=title,
+                            company=company,
+                            location=location,
+                            description=description,
+                            url=url,
+                            email=email,
+                            category=category,
+                            remote=remote,
+                            logo=logo,
+                            reference=reference)
 
     def start_requests(self):
         # TODO: add support for multiple URLs (e.g. jobs and internships)
