@@ -19,16 +19,16 @@ def parse_job(link, config, job_details,  job_csv, column_names):
   
   job_title = driver.find_element_by_xpath(job_details['title'])
   
-  job_location = driver.get_element_by_xpath(job_details['location'])
+  job_location = driver.find_element_by_xpath(job_details['location'])
   
-  job_description = driver.get_element_by_xpath(job_details['description'])
+  job_description = driver.find_element_by_xpath(job_details['description'])
   
   job_logo = job_details['logo']
   
   job_company = config['company']
   
   if 'reference' in job_details.keys():
-    job_reference = driver.get_element_by_xpath(job_details['reference'])
+    job_reference = driver.find_element_by_xpath(job_details['reference'])
   else:
     job_reference = link
     
