@@ -49,7 +49,7 @@ def parse_job(link, config, job_details,  job_csv, column_names):
   print(df2.shape, "#1")
   print(job_csv.shape, "#2")
   
-  job_csv = pd.append(job_csv, df2)
+  job_csv = job_csv.append(job_csv, df2)
   print("Job fetched from ::", link)
   return(job_csv)
   
