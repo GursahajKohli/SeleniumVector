@@ -45,7 +45,7 @@ def parse_job(link, config, job_details,  job_csv, column_names):
   
   job_list = [job_company, '<html><body>' + str(job_description) + '</body></html>', job_location, job_logo, job_reference, job_remote, job_title, job_url]
   df2 = pd.DataFrame(job_list, columns = column_names)
-  job_csv.append(df2)
+  job_csv.append(df2, ignore_index = True)
   print("Job fetched from ::", link)
 
 #Config & job data, will be fetched in future from config files
