@@ -21,7 +21,7 @@ def parse_job(link, config, job_details,  job_csv, column_names):
   
   job_location = driver.get_element_by_xpath(job_details['location'])
   
-  job_desription = driver.get_element_by_xpath(job_details['description'])
+  job_description = driver.get_element_by_xpath(job_details['description'])
   
   job_logo = job_details['logo']
   
