@@ -17,18 +17,18 @@ def parse_job(link, config, job_details,  job_csv, column_names):
   
   driver.get(link)
   
-  job_title = driver.find_element_by_xpath(job_details['title'])
+  job_title = driver.find_element_by_xpath(job_details['title']).text
   
-  job_location = driver.find_element_by_xpath(job_details['location'])
+  job_location = driver.find_element_by_xpath(job_details['location']).text
   
-  job_description = driver.find_element_by_xpath(job_details['description'])
+  job_description = driver.find_element_by_xpath(job_details['description']).text
   
   job_logo = job_details['logo']
   
   job_company = config['company']
   
   if 'reference' in job_details.keys():
-    job_reference = driver.find_element_by_xpath(job_details['reference'])
+    job_reference = driver.find_element_by_xpath(job_details['reference']).text
   else:
     job_reference = link
     
@@ -59,7 +59,7 @@ config = {'url' : 'https://vectorinstitute.bamboohr.com/jobs/', 'links' : '//div
 job_details = {'title' : '//div[contains(@class, "col-xs-12 col-sm-8 col-md-12")]//h2', 'location' : '//span[contains(@class, "ResAts__card-subtitle")]', 'description' : '//div[contains(@class, "col-xs-12 BambooRichText")]', 'logo' : 'https://images3.bamboohr.com/93316/logos/cropped.jpg?v=29'}
 column_names = ['company', 'description', 'location', 'logo', 'reference', 'remote', 'title', 'url']
 
-job_csv = pd.DataFrame(columns = column_names)
+job_csv = pd.DataFrame()
 #final_csv = pd.DataFrame()
 #Start fetching 
 driver.get(config['url'])
@@ -78,6 +78,7 @@ for i in search:
 for link in links:
   job_csv = parse_job(link, config, job_details, job_csv, column_names)
   
+job_csv.columns = column_names
 job_csv.to_csv('Jobs.csv')
   
 
