@@ -67,10 +67,15 @@ print(driver.title)
 print("Job links found as")
 search = driver.find_elements_by_xpath(config['links'])
 print(search)
+links = []
 for i in search:
   print(i)
   print(i.get_attribute("href"))
+  
   link = i.get_attribute("href")
+  links.append(link)
+  
+for link in links:
   job_csv = parse_job(link, config, job_details, job_csv, column_names)
   
 job_csv.to_csv('Jobs.csv')
