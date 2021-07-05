@@ -45,8 +45,9 @@ def parse_job(link, config, job_details,  job_csv, column_names):
   
   job_list = [job_company, '<html><body>' + str(job_description) + '</body></html>', job_location, job_logo, job_reference, job_remote, job_title, job_url]
   df2 = pd.DataFrame(job_list, columns = column_names)
-  job_csv.append(df2, ignore_index = True)
+  job_csv = pd.concat(job_csv, df2)
   print("Job fetched from ::", link)
+  return(job_csv)
 
 #Config & job data, will be fetched in future from config files
 config = {'url' : 'https://vectorinstitute.bamboohr.com/jobs/', 'links' : '//div[contains(@itemtype, "http://schema.org/JobPosting")]//div//a', 'company' : 'Vector Institute'}
@@ -65,7 +66,7 @@ for i in search:
   print(i)
   print(i.get_attribute("href"))
   link = i.get_attribute("href")
-  parse_job(link, config, job_details, job_csv, column_names)
+  job_csv = parse_job(link, config, job_details, job_csv, column_names)
   
 job_csv.to_csv('Jobs.csv')
   
