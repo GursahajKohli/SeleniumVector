@@ -44,7 +44,7 @@ def parse_job(link, config, job_details,  job_csv, column_names):
   job_url = link
   
   job_list = [job_company, '<html><body>' + str(job_description) + '</body></html>', job_location, job_logo, job_reference, job_remote, job_title, job_url]
-  df2 = pd.DataFrame(job_list, columns = column_names)
+  df2 = pd.DataFrame(job_list)
   print(df2.shape(), "#1")
   print(job_csv.shape(), "#2")
   
