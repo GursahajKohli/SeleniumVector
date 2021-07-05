@@ -43,14 +43,14 @@ def parse_job(link, config, job_details,  job_csv, column_names):
   
   job_url = link
   
-  job_list = [job_company, job_description, job_location, job_logo, job_reference, job_remote, job_title, job_url]
+  job_list = [job_company, '<html><body>' + job_description + '</body></html>', job_location, job_logo, job_reference, job_remote, job_title, job_url]
   df2 = pd.DataFrame(job_list, columns = column_names)
   job_csv.append(df2)
   print("Job fetched from ::", link)
 
 #Config & job data, will be fetched in future from config files
 config = {'url' : 'https://vectorinstitute.bamboohr.com/jobs/', 'links' : '//div[contains(@itemtype, "http://schema.org/JobPosting")]//div//a', 'company' : 'Vector Institute'}
-job_details = {'title' : '//div[contains(@class, "col-xs-12 col-sm-8 col-md-12")]//h2/text()', 'location' : '//span[contains(@class, "ResAts__card-subtitle")]/text()', 'description' : '//div[contains(@class, "col-xs-12 BambooRichText")]', 'logo' : 'https://images3.bamboohr.com/93316/logos/cropped.jpg?v=29'}
+job_details = {'title' : '//div[contains(@class, "col-xs-12 col-sm-8 col-md-12")]//h2', 'location' : '//span[contains(@class, "ResAts__card-subtitle")]', 'description' : '//div[contains(@class, "col-xs-12 BambooRichText")]', 'logo' : 'https://images3.bamboohr.com/93316/logos/cropped.jpg?v=29'}
 column_names = ['company', 'description', 'location', 'logo', 'reference', 'remote', 'title', 'url']
 
 job_csv = pd.DataFrame(columns = column_names)
