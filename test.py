@@ -14,7 +14,7 @@ driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chro
 
 #Config & job data, will be fetched in future from config files
 config = {'url' : 'https://vectorinstitute.bamboohr.com/jobs/', 'links' : '//div[contains(@itemtype, "http://schema.org/JobPosting")]//div//a', 'company' : 'Vector Institute'}
-job_details = {'title' : '//div[contains(@class, "col-xs-12 col-sm-8 col-md-12")]//h2/text()', 'location' : '//span[contains(@class, "ResAts__card-subtitle")]/text()', 'description' : '//div[contains(@class, "col-xs-12 BambooRichText")]', 'logo', : 'https://images3.bamboohr.com/93316/logos/cropped.jpg?v=29', }
+job_details = {'title' : '//div[contains(@class, "col-xs-12 col-sm-8 col-md-12")]//h2/text()', 'location' : '//span[contains(@class, "ResAts__card-subtitle")]/text()', 'description' : '//div[contains(@class, "col-xs-12 BambooRichText")]', 'logo' : 'https://images3.bamboohr.com/93316/logos/cropped.jpg?v=29'}
 column_names = ['company', 'description', 'location', 'logo', 'reference', 'remote', 'title', 'url']
 
 job_csv = pd.DataFrame(columns = column_names)
