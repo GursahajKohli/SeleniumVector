@@ -25,6 +25,7 @@ import pandas as pd
 
 filelist = os.listdir("config/src/src")
 print("companies to be scraped :: ", filelist)
+filelist = ['cibc.scraper.config']
 for file in filelist:
     config = configparser.ConfigParser()
     file = "config/src/src/" + file
