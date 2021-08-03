@@ -70,4 +70,4 @@ for file in filelist:
         link_url = selenium_obj.retrieve_links_directly(links)
         selenium_obj.get_job_data(link_url, configfile['title'], configfile['description'], configfile)
         
-    print("Job parsing for  " configfile['company'] " done successfully!!)
+    print("Job parsing for  ",configfile['company'], " done successfully!!")
