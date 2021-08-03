@@ -23,7 +23,7 @@ driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chro
 
 import pandas as pd
 
-file = 'thales.scraper.config'
+file = 'vector.scraper.config'
 config = configparser.ConfigParser()
 config.read(file)
 configfile = config['DEFAULT']
