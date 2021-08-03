@@ -24,6 +24,7 @@ driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chro
 import pandas as pd
 
 filelist = glob.glob("/config/src/src/*")
+print("companies to be scraped :: ", filelist)
 for file in filelist:
     config = configparser.ConfigParser()
     config.read(file)
