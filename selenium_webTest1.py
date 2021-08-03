@@ -6,9 +6,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 import json
 
 import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import pandas as pd
 
-
-PATH = r"C:\Users\Gurinder\Desktop\Vector\chromedriver.exe"
+#Intializing the webdriver for selenium
 
 class SeleniumWeb:
 
