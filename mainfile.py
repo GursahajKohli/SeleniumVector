@@ -33,7 +33,7 @@ for file in filelist:
         url = configfile['url']
     else:
         print("No URL Specified")
-        exit()
+        break
 
     driver.get(url)
     print("Let the website load for 10 seconds")
@@ -69,3 +69,5 @@ for file in filelist:
         links = configfile['links']
         link_url = selenium_obj.retrieve_links_directly(links)
         selenium_obj.get_job_data(link_url, configfile['title'], configfile['description'], configfile)
+        
+    print("Job parsing for  " configfile['company'] " done successfully!!)
