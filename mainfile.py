@@ -7,10 +7,22 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import json
 
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import pandas as pd
 
+#Intializing the webdriver for selenium
+options = Options()
+options.add_argument("--headless")
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-gpu')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('disable-infobars')
+options.add_argument("--disable-extensions")
+driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chromedriver')
 
-PATH = r"C:\Users\Gurinder\Desktop\Vector\chromedriver.exe"
+import pandas as pd
+
 file = 'thales.scraper.config'
 config = configparser.ConfigParser()
 config.read(file)
@@ -22,7 +34,6 @@ else:
     print("No URL Specified")
     exit()
 
-driver = webdriver.Chrome(PATH)
 driver.get(url)
 print("Let the website load for 10 seconds")
 time.sleep(12)
