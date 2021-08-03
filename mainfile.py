@@ -34,7 +34,7 @@ for file in filelist:
         url = configfile['url']
     else:
         print("No URL Specified")
-        break
+        continue
 
     driver.get(url)
     print("Let the website load for 10 seconds")
