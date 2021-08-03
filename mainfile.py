@@ -6,7 +6,7 @@ import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import json
-import glob
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import pandas as pd
@@ -23,7 +23,7 @@ driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chro
 
 import pandas as pd
 
-filelist = glob.glob("/config/src/src/*")
+filelist = os.listdir("/config/src/src")
 print("companies to be scraped :: ", filelist)
 for file in filelist:
     config = configparser.ConfigParser()
