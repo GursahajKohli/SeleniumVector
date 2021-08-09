@@ -24,6 +24,46 @@ driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chro
 
 import pandas as pd
 
+def createXML():
+
+    filePATH = os.listdir("config/")
+
+    filelist = []
+    prefix = "config/"
+    for file in filePATH:
+        if file.endswith(".csv"):
+            filelist.append(prefix + file)
+
+    root = xml.Element('items')
+    tree = xml.ElementTree(root)
+
+    for csv in filelist:
+
+        df = pd.read_csv(csv)
+        n = df.shape[0]
+        for i in range(n):
+            jobXml = Element('item')
+            root.append(jobXml)
+            jobTitle = xml.SubElement(jobXml, 'title')
+            jobTitle.text = df.iloc[i]['title']
+
+            description = xml.SubElement(jobXml, 'description')
+            description.text = df.iloc[i]['description']
+
+            url = xml.SubElement(jobXml, 'url')
+            url.text = df.iloc[i]['url']
+
+            img_job = xml.SubElement(jobXml, 'logo')
+            img_job.text = df.iloc[i]['logo']
+
+            company = xml.SubElement(jobXml, 'company')
+            company.text = df.iloc[i]['company']
+
+    file_obj = open("merged.xml", "wb+")
+    file_obj.write(str(xml1.tostring(root))[2:-1].encode('utf-8'))
+
+    print("Done!")
+
 filelist = os.listdir("config/src/src")
 print("companies to be scraped :: ", filelist)
 filelist = ['cibc.scraper.config']
@@ -73,5 +113,9 @@ for file in filelist:
         links = configfile['links']
         link_url = selenium_obj.retrieve_links_directly(links)
         selenium_obj.get_job_data(link_url, configfile['title'], configfile['description'], configfile)
+        
+    filename = "config/" + configfile['company'] + ".csv"
+    selenium_obj.df.to_csv(filename)
+    createXML()
         
     print("Job parsing for  ",configfile['company'], " done successfully!!")
