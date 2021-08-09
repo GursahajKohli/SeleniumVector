@@ -10,9 +10,6 @@ from xml.etree.ElementTree import ElementTree
 from xml.etree.ElementTree import Element
 import pandas as pd
 
-
-PATH = r"C:\Users\Gurinder\Desktop\Vector\chromedriver.exe"
-
 class SeleniumWeb:
 
     column_names = [ "title", "company", "url", "description", "logo"]
