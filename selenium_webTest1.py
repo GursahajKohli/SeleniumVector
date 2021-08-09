@@ -1,113 +1,124 @@
+from selenium_webTest1 import SeleniumWeb
+import configparser
 import selenium
 from selenium import webdriver
 import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import json
-
+import os
 import pandas as pd
+import selenium
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+import time
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+import json
+import xml.etree.ElementTree as xml
+import xml.etree.ElementTree as xml1
+from xml.etree.ElementTree import ElementTree
+from xml.etree.ElementTree import Element
 import pandas as pd
 
-#Intializing the webdriver for selenium
-
-class SeleniumWeb:
-
-    column_names = ["company", "url", "location", "title", "description"]
-    df = pd.DataFrame(columns = column_names)
-
-    def __init__(self, driver):
-        self.driver = driver
-        print("Selenium started to work")
-
-    def plugin_buttons(self, buttons):
-
-        xpath_button = buttons
-
-        for xpathb in xpath_button:
-
-            selector = self.driver.find_element_by_xpath(xpathb)
-            try:
-                selector.click()
-
-            except selenium.common.exceptions.ElementNotInteractableException:
-                selector.send_keys(Keys.SPACE)
-            print("Selection made")
-            time.sleep(5)
 
 
+def createXML():
 
-    def search_keyword(self, keyword, search_bar):
+    filePATH = os.listdir("config/")
 
-        time.sleep(5)
-        search = self.driver.find_element_by_xpath(search_bar)
-        print("Searching for keyword :: ", keyword)
-        search.send_keys(keyword)
-        time.sleep(1)
-        search.send_keys(Keys.RETURN)
-        print("Search complete!")
+    filelist = []
+    prefix = "config/"
+    for file in filePATH:
+        if file.endswith(".csv"):
+            filelist.append(prefix + file)
 
-    def retrieve_links_by_right_click(self, links, right_click, url_selector):
+    root = xml.Element('items')
+    tree = xml.ElementTree(root)
 
-        print("Retrieving links")
-        time.sleep(6)
+    for csv in filelist:
 
-        job_links = self.driver.find_elements_by_xpath(links)
+        df = pd.read_csv(csv)
+        n = df.shape[0]
+        for i in range(n):
+            jobXml = Element('item')
+            root.append(jobXml)
+            jobTitle = xml.SubElement(jobXml, 'title')
+            jobTitle.text = df.iloc[i]['title']
 
-        job_urls = []
-        action = ActionChains(self.driver)
+            description = xml.SubElement(jobXml, 'description')
+            description.text = df.iloc[i]['description']
 
-        counter = 30
+            url = xml.SubElement(jobXml, 'url')
+            url.text = df.iloc[i]['url']
 
-        for job in job_links:
-            if counter < 0:
-                break
-            counter = counter - 1
-            time.sleep(2)
-            action = ActionChains(self.driver)
-            action.context_click(job).perform()
-            element = self.driver.find_element_by_xpath(right_click)
-            job_url = element.get_attribute(url_selector)
-            job_urls.append(job_url)
-            print(job_url)
-            element = self.driver.find_element_by_xpath("//body")
-            element.send_keys(Keys.ESCAPE)
-            print("Next job")
-        return(job_urls)
+            img_job = xml.SubElement(jobXml, 'logo')
+            img_job.text = df.iloc[i]['logo']
 
-    def get_job_data(self, job_urls, title1, desc, configfile):
+            company = xml.SubElement(jobXml, 'company')
+            company.text = df.iloc[i]['company']
 
-        for job in job_urls:
+    file_obj = open("merged.xml", "wb+")
+    file_obj.write(str(xml1.tostring(root))[2:-1].encode('utf-8'))
 
-            self.driver.get(job)
-            time.sleep(10)
-            company_name = configfile['company']
-            title = self.driver.find_element_by_xpath(title1)
-            title = title.text
-            print(title)
-            #location = self.driver.find_element_by_xpath("//div[@title = 'Toronto, Ontario']")
-            #location = location.text
-            description = self.driver.find_element_by_xpath(desc).get_attribute("outerHTML")
-            print(description)
-            self.driver.back()
-            #print(location)
-            time.sleep(3)
-            time.sleep(5)
-
-    def retrieve_links_directly(self, link_url):
-
-        links = self.driver.find_elements_by_xpath(link_url)
-        job_links = []
-        for link in links:
-            job_links.append(link.get_attribute('href'))
-            print(link.get_attribute('href'))
-        return job_links
+    print("Done!")
 
 
+PATH = r"C:\Users\Gurinder\Desktop\Vector\chromedriver.exe"
+filelist = os.listdir("config/src/")
+prefix = "config/src/"
+print(filelist)
+
+for file in filelist:
+    config = configparser.ConfigParser()
+    config.read("config/src/" + file)
+    configfile = config['DEFAULT']
+
+    if config.has_option("DEFAULT", 'url') :
+        url = configfile['url']
+        print("Parsing jobs for :: ", configfile['company'])
+    else:
+        print("No URL Specified")
+        exit()
+
+    driver = webdriver.Chrome(PATH)
+    driver.get(url)
+    print("Let the website load for 10 seconds")
+    time.sleep(12)
+    selenium_obj = SeleniumWeb(driver)
+
+    if config.has_option("DEFAULT", 'buttons') :
+        buttons = configfile['buttons'].split("|")
+        selenium_obj.plugin_buttons(buttons)
+
+    if config.has_option("DEFAULT", 'keyword'):
+        if config.has_option("DEFAULT", 'search_bar'):
+            keyword = configfile['keyword']
+            searchbar = configfile['search_bar']
+            selenium_obj.search_keyword(keyword, searchbar)
+        else:
+            print("Searching field bar is not specified!! Please check your config file once :)")
+            exit()
+    if 'workday' in url:
+
+        if config.has_option("DEFAULT", 'right_click') and config.has_option("DEFAULT", 'links') and config.has_option("DEFAULT", 'url_selector'):
+
+            links = configfile['links']
+            right_click = configfile['right_click']
+            url_selector = configfile['url_selector']
+            job_links = selenium_obj.retrieve_links_by_right_click(links, right_click, url_selector)
+            print(job_links)
+            selenium_obj.get_job_data(job_links, configfile['title'], configfile['description'], configfile)
 
 
+        else:
+            print("Can't fetch Job URLs, please give instructions for right click to select the URL for the particular posting")
 
+    else:
 
+        links = configfile['links']
+        link_url = selenium_obj.retrieve_links_directly(links)
+        selenium_obj.get_job_data(link_url, configfile['title'], configfile['description'], configfile)
 
-
+    filename = "config/OUTPUT/" + configfile['company'] + ".csv"
+    selenium_obj.df.to_csv(filename)
+    createXML()
