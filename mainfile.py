@@ -9,6 +9,10 @@ import json
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import xml.etree.ElementTree as xml
+import xml.etree.ElementTree as xml1
+from xml.etree.ElementTree import ElementTree
+from xml.etree.ElementTree import Element
 import pandas as pd
 
 #Intializing the webdriver for selenium
