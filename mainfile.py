@@ -19,6 +19,7 @@ options.add_argument('--disable-gpu')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('disable-infobars')
 options.add_argument("--disable-extensions")
+options.add_argument("--start-maximized")
 driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chromedriver')
 
 import pandas as pd
