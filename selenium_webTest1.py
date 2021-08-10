@@ -59,7 +59,7 @@ class SeleniumWeb:
         job_urls = []
         action = ActionChains(self.driver)
 
-        counter = 10
+        counter = 30
 
         for job in job_links:
             if counter < 0:
