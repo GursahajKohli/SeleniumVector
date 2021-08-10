@@ -47,9 +47,11 @@ jobs:
         name: merged_XML
         path: merged.xml
     - name: Delete existing XML
-      run : git checkout gh-pages
-            rm -rf merged.xml
-            git checkout main
+      run:
+        git checkout -b mybranch
+        rm merged.xml
+        git commit -am "delete Existing XML"
+      
     - name: Commit XMLs on gh-pages
       run: |
           git fetch --all
