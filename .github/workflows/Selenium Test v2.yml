@@ -52,7 +52,7 @@ jobs:
           git fetch --all
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Action"
-          git add ./*.xml
+          git add merged.xml
           git stash push -m merged.xml
           git checkout gh-pages
           git pull origin gh-pages --rebase
