@@ -1,0 +1,67 @@
+name: All Jobs Scraper
+
+name: scraper
+
+on:
+  repository_dispatch:
+  schedule:
+    # 0th min, 5th hour (5:00 UTC time = 0:00 EST), every 1st and 4th day of each week (Mon/Thu)
+    - cron: '15 17 * * 1,2,3,4,5,6,7'
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: setup-chromedriver
+      uses: nanasess/setup-chromedriver@v1.0.1
+    - name: Install Chrome and Firefox
+      run: |
+        sudo apt install google-chrome-stable
+        sudo apt-get install firefox
+        sudo pip3 install selenium
+        python -m pip install selenium
+    - name: Install Libraries
+      run: |
+        pip install pandas
+    - name: Running MainFile
+      run: |
+        python all_scraper_git.py
+    - name: Uploading generated artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: merged_XML
+        path: merged.xml
+    
+    - name: Commit XMLs on gh-pages
+      run: |
+          git fetch --all
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Action"
+          git add merged.xml
+          git stash push -m merged.xml
+          git checkout gh-pages
+          git pull origin gh-pages --rebase
+          git cherry-pick -n -m1 -Xtheirs stash
+          git commit -m "Update XMLs"
+    - name: Push changes
+      uses: ad-m/github-push-action@v0.6.0
+      with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
