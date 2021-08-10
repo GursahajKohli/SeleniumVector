@@ -126,6 +126,6 @@ for file in filelist:
         createXML()
 
         print("Job parsing for  ",configfile['company'], " done successfully!!")
-        driver.close()
+        
     except:
         print("Cant Scrape for ", configfile['company'], ", ....... skipping !!!")
