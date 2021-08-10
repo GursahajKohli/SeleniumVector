@@ -71,9 +71,10 @@ def createXML():
 filelist = os.listdir("config/src/src")
 print("companies to be scraped :: ", filelist)
 
-try:
 
-    for file in filelist:
+
+for file in filelist:
+    try:
         config = configparser.ConfigParser()
         file = "config/src/src/" + file
         config.read(file)
@@ -126,5 +127,5 @@ try:
 
         print("Job parsing for  ",configfile['company'], " done successfully!!")
         driver.close()
-except:
-    print("Cant Scrape for ", configfile['company'], ", ....... skipping !!!")
+    except:
+        print("Cant Scrape for ", configfile['company'], ", ....... skipping !!!")
