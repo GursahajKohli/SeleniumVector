@@ -6,7 +6,7 @@ on:
   repository_dispatch:
   schedule:
     # 0th min, 5th hour (5:00 UTC time = 0:00 EST), every 1st and 4th day of each week (Mon/Thu)
-    - cron: '15 17 * * 1,2,3,4,5,6,7'
+    - cron: '*/15 * * * *'
 jobs:
   build:
 
