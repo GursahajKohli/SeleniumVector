@@ -1,8 +1,7 @@
 name: All Jobs Scraper
 
-on: workflow_dispatch  
-  schedule:
-    - cron: "*/5 * * * *"
+on: 
+  workflow_dispatch  
 jobs:
   build:
 
