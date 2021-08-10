@@ -46,22 +46,14 @@ jobs:
       with:
         name: merged_XML
         path: merged.xml
-    - name: Delete existing XML
-      run:
-        git fetch --all
-        git config --local user.email "actions@github.com"
-        git config --local user.name "GitHub Action"
-        git checkout -b gh-pages
-        git rm merged.xml
-        git commit -m "delete Existing XML"
-      
+    
     - name: Commit XMLs on gh-pages
       run: |
           git fetch --all
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Action"
           git add ./*.xml
-          git stash push -m xmls ./*.xml
+          git stash push -f merged.xml
           git checkout gh-pages
           git pull origin gh-pages --rebase
           git cherry-pick -n -m1 -Xtheirs stash
