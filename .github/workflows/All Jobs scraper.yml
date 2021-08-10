@@ -1,6 +1,6 @@
 name: All Jobs Scraper
 
-name: scraper
+
 
 on:
   repository_dispatch:
