@@ -10,6 +10,7 @@ from xml.etree.ElementTree import ElementTree
 from xml.etree.ElementTree import Element
 import pandas as pd
 import os
+from tqdm import tqdm
 
 class SeleniumWeb:
 
