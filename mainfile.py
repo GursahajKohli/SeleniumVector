@@ -87,11 +87,7 @@ for file in filelist:
     print("Let the website load for 10 seconds")
     time.sleep(12)
     selenium_obj = SeleniumWeb(driver)
-
-    if config.has_option("DEFAULT", 'buttons') :
-        buttons = configfile['buttons'].split("|")
-        selenium_obj.plugin_buttons(buttons)
-
+    
     if config.has_option("DEFAULT", 'keyword'):
         if config.has_option("DEFAULT", 'search_bar'):
             keyword = configfile['keyword']
@@ -100,6 +96,12 @@ for file in filelist:
         else:
             print("Searching field bar is not specified!! Please check your config file once :)")
             exit()
+    
+    if config.has_option("DEFAULT", 'buttons') :
+        buttons = configfile['buttons'].split("|")
+        selenium_obj.plugin_buttons(buttons)
+
+    
     if 'workday' in url:
 
         if config.has_option("DEFAULT", 'right_click') and config.has_option("DEFAULT", 'links') and config.has_option("DEFAULT", 'url_selector'):
