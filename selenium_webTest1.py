@@ -79,7 +79,9 @@ class SeleniumWeb:
 
     def get_job_data(self, job_urls, title1, desc, configfile):
 
-        for job in job_urls:
+        for i in tqdm(range(min(30, len(job_urls)))):
+
+            job = job_urls[i]
 
             self.driver.get(job)
             time.sleep(10)
