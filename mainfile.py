@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import json
 import os
+from tqdm import tqdm
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import xml.etree.ElementTree as xml
@@ -85,7 +86,9 @@ for file in filelist:
 
     driver.get(url)
     print("Let the website load for 10 seconds")
-    time.sleep(12)
+    for i in tqdm(range(12)):
+        time.sleep(1)
+    
     selenium_obj = SeleniumWeb(driver)
     
     if config.has_option("DEFAULT", 'buttons') :
