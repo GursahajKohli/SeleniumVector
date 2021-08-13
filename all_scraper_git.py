@@ -72,8 +72,9 @@ def createXML(mergedlist):
 
     filelist = mergedlist
     prefix = "config/"
+    suffix = ".csv"
     for file in filePATH:
-        filelist.append(prefix + file)
+        filelist.append(prefix + file + suffix)
 
     root = xml.Element('items')
     tree = xml.ElementTree(root)
