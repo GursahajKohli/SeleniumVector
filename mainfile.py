@@ -125,6 +125,9 @@ for file in filelist:
         
     filename = "config/" + configfile['company'] + ".csv"
     selenium_obj.df.to_csv(filename)
-    createXML()
+    if configfig['separate_url']:
+        createXML_separate(configfile['company'])
+    else:
+        createXML()
         
     print("Job parsing for  ",configfile['company'], " done successfully!!")
