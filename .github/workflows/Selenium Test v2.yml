@@ -44,16 +44,16 @@ jobs:
     - name: Uploading generated artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: merged_XML
-        path: merged.xml
+        name: XMLs 
+        path: ./*.xml
     
     - name: Commit XMLs on gh-pages
       run: |
           git fetch --all
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Action"
-          git add merged.xml
-          git stash push -m merged.xml
+          git add *.xml
+          git stash push -m *.xml 
           git checkout gh-pages
           git pull origin gh-pages --rebase
           git cherry-pick -n -m1 -Xtheirs stash
