@@ -164,7 +164,7 @@ for file in filelist:
         
     filename = "config/" + configfile['company'] + ".csv"
     selenium_obj.df.to_csv(filename)
-    if configfig['separate_url']:
+    if configfile['separate_url']:
         createXML_Separate(configfile['company'])
     else:
         createXML()
