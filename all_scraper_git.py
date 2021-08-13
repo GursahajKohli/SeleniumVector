@@ -70,7 +70,8 @@ def createXML_Separate(filename):
 
 def createXML(mergedlist):
 
-    filelist = mergedlist
+    filelist = []
+    filePATH = mergedlist
     prefix = "config/"
     suffix = ".csv"
     for file in filePATH:
