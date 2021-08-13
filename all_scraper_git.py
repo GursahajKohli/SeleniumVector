@@ -28,6 +28,46 @@ driver = webdriver.Chrome(chrome_options=options, executable_path='/usr/bin/chro
 
 import pandas as pd
 
+
+def createXML_Separate(filename):
+
+    filePATH = os.listdir("config/")
+
+    
+    prefix = "config/"
+    filelist = [prefix + filename + ".csv"]
+    
+    root = xml.Element('items')
+    tree = xml.ElementTree(root)
+
+    for csv in filelist:
+
+        df = pd.read_csv(csv)
+        n = df.shape[0]
+        for i in range(n):
+            jobXml = Element('item')
+            root.append(jobXml)
+            jobTitle = xml.SubElement(jobXml, 'title')
+            jobTitle.text = df.iloc[i]['title']
+
+            description = xml.SubElement(jobXml, 'description')
+            description.text = df.iloc[i]['description']
+
+            url = xml.SubElement(jobXml, 'url')
+            url.text = df.iloc[i]['url']
+
+            img_job = xml.SubElement(jobXml, 'logo')
+            img_job.text = df.iloc[i]['logo']
+
+            company = xml.SubElement(jobXml, 'company')
+            company.text = df.iloc[i]['company']
+
+    separate_xml = filename + ".xml"
+    file_obj = open(separate_xml, "wb+")
+    file_obj.write(str(xml1.tostring(root))[2:-1].encode('utf-8'))
+
+    print("Done!")
+
 def createXML():
 
     filePATH = os.listdir("config/")
