@@ -68,15 +68,12 @@ def createXML_Separate(filename):
 
     print("Done!")
 
-def createXML():
+def createXML(mergedlist):
 
-    filePATH = os.listdir("config/")
-
-    filelist = []
+    filelist = mergedlist
     prefix = "config/"
     for file in filePATH:
-        if file.endswith(".csv"):
-            filelist.append(prefix + file)
+        filelist.append(prefix + file)
 
     root = xml.Element('items')
     tree = xml.ElementTree(root)
@@ -110,8 +107,8 @@ def createXML():
 
 filelist = os.listdir("config/src/src")
 print("companies to be scraped :: ", filelist)
-
-
+separate_list = []
+merged_list = []
 
 for file in filelist:
     try:
@@ -163,9 +160,15 @@ for file in filelist:
 
         filename = "config/" + configfile['company'] + ".csv"
         selenium_obj.df.to_csv(filename)
-        createXML()
+        if configfile['separate_url']:
+            createXML_Separate(configfile['company'])
+        else:
+            merged_list.append(filename)
+            
+        createXML(merged_list)
 
         print("Job parsing for  ",configfile['company'], " done successfully!!")
         
     except:
         print("Cant Scrape for ", configfile['company'], ", ....... skipping !!!")
+        
