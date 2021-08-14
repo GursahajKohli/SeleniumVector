@@ -49,8 +49,8 @@ jobs:
           git fetch --all
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Action"
-          git add *.xml
-          git stash push -m *.xml
+          git add ./*.xml
+          git stash push -m xmls ./*.xml
           git checkout gh-pages
           git pull origin gh-pages --rebase
           git cherry-pick -n -m1 -Xtheirs stash
