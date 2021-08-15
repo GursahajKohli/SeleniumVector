@@ -164,8 +164,8 @@ for file in filelist:
         selenium_obj.df.to_csv(filename)
         
         print(configfile['separate_url'], "  To tell for separate URL")
-        print(type(configfile['separate_url'])
-        print(bool(configfile['separate_url'])
+        print(type(configfile['separate_url']))
+        print(bool(configfile['separate_url']))
         if configfile['separate_url'] == "True":
             createXML_Separate(configfile['company'])
         else:
