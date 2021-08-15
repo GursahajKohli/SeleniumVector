@@ -72,6 +72,7 @@ def createXML(mergedlist):
 
     filelist = []
     filePATH = mergedlist
+    print(filePATH, "Files to be merged")
     prefix = "config/"
     suffix = ".csv"
     for file in filePATH:
@@ -166,6 +167,7 @@ for file in filelist:
             createXML_Separate(configfile['company'])
         else:
             merged_list.append(filename)
+            print(merged_list)
             
         createXML(merged_list)
 
