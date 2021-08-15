@@ -70,11 +70,8 @@ def createXML_Separate(filename):
 
 def createXML(mergedlist):
 
-    filelist = []
-    filePATH = mergedlist
+    filelist = mergedlist
     print(filePATH, "Files to be merged")
-    prefix = "config/"
-    suffix = ".csv"
 
     root = xml.Element('items')
     tree = xml.ElementTree(root)
