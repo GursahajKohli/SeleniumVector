@@ -110,6 +110,7 @@ def createXML(mergedlist):
 
 filelist = os.listdir("config/src/src")
 print("companies to be scraped :: ", filelist)
+filelist = ['nvidia.scraper.config']
 separate_list = []
 merged_list = []
 
