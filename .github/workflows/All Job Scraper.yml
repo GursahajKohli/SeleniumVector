@@ -42,7 +42,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: merged_XML
-        path: ./.*xml
+        path: ./*.xml
     
     - name: Commit XMLs on gh-pages
       run: |
