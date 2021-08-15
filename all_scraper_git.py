@@ -75,8 +75,8 @@ def createXML(mergedlist):
     print(filePATH, "Files to be merged")
     prefix = "config/"
     suffix = ".csv"
-    for file in filePATH:
-        filelist.append(prefix + file + suffix)
+    '''for file in filePATH:
+        filelist.append(prefix + file + suffix)'''
 
     root = xml.Element('items')
     tree = xml.ElementTree(root)
@@ -164,7 +164,11 @@ for file in filelist:
 
         filename = "config/" + configfile['company'] + ".csv"
         selenium_obj.df.to_csv(filename)
-        if configfile['separate_url']:
+        
+        print(configfile['separate_url'], "  To tell for separate URL")
+        print(type(configfile['separate_url'])
+        print(bool(configfile['separate_url'])
+        if configfile['separate_url'] == "True":
             createXML_Separate(configfile['company'])
         else:
             merged_list.append(filename)
