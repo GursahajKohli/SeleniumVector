@@ -167,6 +167,7 @@ for file in filelist:
             createXML_Separate(configfile['company'])
         else:
             merged_list.append(filename)
+            print("Company to be merged", configfile['company'])
             print(merged_list)
             
         createXML(merged_list)
