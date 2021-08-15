@@ -105,7 +105,7 @@ def createXML(mergedlist):
 
 filelist = os.listdir("config/src/src")
 print("companies to be scraped :: ", filelist)
-filelist = ['nvidia.scraper.config']
+
 separate_list = []
 merged_list = []
 
@@ -160,15 +160,10 @@ for file in filelist:
         filename = "config/" + configfile['company'] + ".csv"
         selenium_obj.df.to_csv(filename)
         
-        print(configfile['separate_url'], "  To tell for separate URL")
-        print(type(configfile['separate_url']))
-        print(bool(configfile['separate_url']))
         if configfile['separate_url'] == "True":
             createXML_Separate(configfile['company'])
         else:
             merged_list.append(filename)
-            print("Company to be merged", configfile['company'])
-            print(merged_list)
             
         createXML(merged_list)
 
