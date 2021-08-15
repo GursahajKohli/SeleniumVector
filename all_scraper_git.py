@@ -71,7 +71,7 @@ def createXML_Separate(filename):
 def createXML(mergedlist):
 
     filelist = mergedlist
-    print(filePATH, "Files to be merged")
+    print(filelist, "Files to be merged")
 
     root = xml.Element('items')
     tree = xml.ElementTree(root)
