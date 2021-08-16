@@ -1,1 +1,1 @@
-
+[![All Jobs Scraper](https://github.com/GursahajKohli/SeleniumVector/actions/workflows/All%20Job%20Scraper.yml/badge.svg?branch=main)](https://github.com/GursahajKohli/SeleniumVector/actions/workflows/All%20Job%20Scraper.yml)
