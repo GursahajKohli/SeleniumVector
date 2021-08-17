@@ -110,7 +110,7 @@ def createXML():
 
 filelist = os.listdir("config/src/src")
 print("companies to be scraped :: ", filelist)
-filelist = ['shopify.scraper.config']
+filelist = ['canvass.scraper.config']
 for file in filelist:
     config = configparser.ConfigParser()
     file = "config/src/src/" + file
