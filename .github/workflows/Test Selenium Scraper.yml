@@ -44,9 +44,8 @@ jobs:
         pip install pandas
     - name: Running MainFile
       run: |
-        python TestScraper.py ${SITE}
-        env:
-          SITE: ${{ github.event.inputs.company }}
+        python TestScraper.py ${{ github.event.inputs.company }}
+        
     - name: Uploading generated artifacts
       uses: actions/upload-artifact@v2
       with:
