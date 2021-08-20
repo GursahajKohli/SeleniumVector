@@ -110,7 +110,8 @@ def createXML():
     print("Done!")
 
 filelist = os.listdir("config/src/src")
-site = list(sys.argv[1]) + '.scraper.config'
+print(list(sys.argv))
+site = list(sys.argv)[1] + '.scraper.config'
 filelist = [site]
 print("Company to be scraped :: ", filelist)
 
