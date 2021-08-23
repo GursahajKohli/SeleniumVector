@@ -1,0 +1,11 @@
+[DEFAULT]
+
+company = Borealis AI
+
+
+links = //a[@class = "job-listing__item__title"]
+url = https://www.borealisai.com/en/careers/employment/
+title = //div[@class = "page-header__title"]//h1
+description = //div[@class = "col-2__item wysiwyg-content"]
+logo =  //div[@class="container"]//section[@class="section section--no-divider" and not(.//a[text()="Apply"])]
+separate_url = True
