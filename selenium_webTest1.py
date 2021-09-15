@@ -89,11 +89,12 @@ class SeleniumWeb:
             company_name = configfile['company']
             title = self.driver.find_element_by_xpath(title1)
             title = title.text
+            title = title.replce("\n", " ")
             #location = self.driver.find_element_by_xpath("//div[@title = 'Toronto, Ontario']")
             #location = location.text
 
             description = self.driver.find_element_by_xpath(desc).get_attribute("outerHTML")
-            description = description.replace("\n", "")
+            description = description.replace("\n", "").replace("\t", "")
 
             self.driver.back()
             #print(location)
