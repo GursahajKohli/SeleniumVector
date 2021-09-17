@@ -78,7 +78,7 @@ class SeleniumWeb:
             print("Next job")
         return(job_urls)
 
-    def get_job_data(self, job_urls, title1, desc, configfile):
+    def get_job_data(self, job_urls, title1, desc, configfile, utm):
 
         for i in tqdm(range(min(30, len(job_urls)))):
 
@@ -100,7 +100,7 @@ class SeleniumWeb:
             #print(location)
             time.sleep(3)
             time.sleep(5)
-            url = job
+            url = job + utm
             logo = configfile['logo']
             self.appendCSV(company_name, description, logo, title, url)
             print("Job ", title, "Scraped successfully!!")
