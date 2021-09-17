@@ -134,6 +134,11 @@ for file in filelist:
     
     selenium_obj = SeleniumWeb(driver)
     
+    if config.has_option("DEFAULT", 'UTM_Source Code') :
+        utm = configfile['UTM_Source Code']
+    else:
+        utm = ""
+    
     if config.has_option("DEFAULT", 'buttons') :
         buttons = configfile['buttons'].split("|")
         selenium_obj.plugin_buttons(buttons)
@@ -156,7 +161,7 @@ for file in filelist:
             right_click = configfile['right_click']
             url_selector = configfile['url_selector']
             job_links = selenium_obj.retrieve_links_by_right_click(links, right_click, url_selector)
-            selenium_obj.get_job_data(job_links, configfile['title'], configfile['description'], configfile)
+            selenium_obj.get_job_data(job_links, configfile['title'], configfile['description'], configfile, utm)
         else:
             print("Can't fetch Job URLs, please give instructions for right click to select the URL for the particular posting")
 
@@ -164,7 +169,7 @@ for file in filelist:
 
         links = configfile['links']
         link_url = selenium_obj.retrieve_links_directly(links)
-        selenium_obj.get_job_data(link_url, configfile['title'], configfile['description'], configfile)
+        selenium_obj.get_job_data(link_url, configfile['title'], configfile['description'], configfile, utm)
         
     filename = "config/" + configfile['company'] + ".csv"
     selenium_obj.df.to_csv(filename)
