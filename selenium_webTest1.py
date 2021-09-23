@@ -94,7 +94,7 @@ class SeleniumWeb:
             #location = location.text
 
             description = self.driver.find_element_by_xpath(desc).get_attribute("outerHTML")
-            description = description.replace("\n", "").replace("\t", "").replace("\", "")
+            description = description.replace("\n", "").replace("\t", "").replace("\\", "")
 
             self.driver.back()
             #print(location)
