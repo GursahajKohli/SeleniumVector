@@ -109,6 +109,9 @@ print("companies to be scraped :: ", filelist)
 separate_list = []
 merged_list = []
 
+column_log = ["comapny", "status"]
+status_log = pd.DataFrame(columns = column_log)
+
 for file in filelist:
     try:
         config = configparser.ConfigParser()
@@ -173,7 +176,14 @@ for file in filelist:
         createXML(merged_list)
 
         print("Job parsing for  ",configfile['company'], " done successfully!!")
+        df_log = pd.DataFrame({"company" : [configfile['company']], "status" : ["Successful"]})
+        status_log.append(df_log)
         
     except:
         print("Cant Scrape for ", configfile['company'], ", ....... skipping !!!")
+        
+        df_log = pd.DataFrame({"company" : [configfile['company']], "status" : ["Fail"]})
+        status_log.append(df_log)
+        
+df_log.to_csv("Status_log.csv")        
         
