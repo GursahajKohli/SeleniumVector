@@ -185,5 +185,5 @@ for file in filelist:
         df_log = pd.DataFrame({"company" : [configfile['company']], "status" : ["Fail"]})
         status_log.append(df_log)
         
-df_log.to_csv("Status_log.csv")        
+status_log.to_csv("Status_log.csv")        
         
