@@ -43,6 +43,11 @@ jobs:
       with:
         name: merged_XML
         path: ./*.xml
+    - name: Uploading Status CSV
+      uses: actions/upload-artifact@v2
+      with:
+        name: merged_XML
+        path: ./Status_log.csv
     
     - name: Commit XMLs on gh-pages
       run: |
