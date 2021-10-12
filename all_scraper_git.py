@@ -109,7 +109,7 @@ print("companies to be scraped :: ", filelist)
 separate_list = []
 merged_list = []
 company_log = []
-status_comany = []
+status_company = []
 
 for file in filelist:
     try:
