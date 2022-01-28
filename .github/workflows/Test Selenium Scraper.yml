@@ -49,5 +49,5 @@ jobs:
     - name: Uploading generated artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: XMLs 
+        name: XMLs
         path: ./*.xml
