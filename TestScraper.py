@@ -153,7 +153,7 @@ for file in filelist:
             exit()
 
     
-    if 'workday' in url and 'thales' not in url:
+    if 'workday' in url and 'thales' not in url and 'bmo' not in url:
 
         if config.has_option("DEFAULT", 'right_click') and config.has_option("DEFAULT", 'links') and config.has_option("DEFAULT", 'url_selector'):
 
